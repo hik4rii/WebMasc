@@ -66,10 +66,17 @@
 				{% else %}
 				<p>Producto agotado</p>
 				{% endif %}
-				<span  class="icon-cross">
-					<img src="{%static 'core/assets/images/cross.svg' %}" class="img">
-
-				</span>
+				{% if user.is_authenticated %}
+				<form action="{% url 'añadir_carro' aux.id %}" method="post">
+									{% csrf_token %}
+									<button type="submit" class="btn btn-primary">Añadir al carrito</button>
+								</form>
+			{% else %}	
+			<span  class="icon-cross">
+				<img  src="{%static 'core/assets/images/cross.svg' %}" class="img">
+				
+			</span>
+			{% endif %}
 					
 			</a>
 			<br><br>

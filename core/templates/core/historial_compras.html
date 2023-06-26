@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block css%}
+
+<link href="{%static 'core/assets/css/reg/reg.css' %}" rel="stylesheet">
+
+{% endblock%}
+
+
+{% block contenido%}
+
+{% for compra in compras %}
+  <h3>Compra: {{ compra.id }}</h3>
+  <p>Fecha: {{ compra.fecha }}</p>
+  <p>Seguimiento: {{ compra.seguimiento }}</p>
+  <!-- Otros detalles de la compra -->
+  <ul>
+    {% for item in compra.itemcompra_set.all %}
+      <li>{{ item.producto.nombre }} ({{ item.cantidad }})</li>
+    {% endfor %}
+  </ul>
+{% empty %}
+  <p>No se encontraron compras.</p>
+{% endfor %}
+
+{% endblock%}
+
+
+{% block js%}
+
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+{% endblock%}

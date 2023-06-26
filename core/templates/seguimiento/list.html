@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+
+
+{% load static %}
+
+{% block css%}
+    
+<link href="{%static 'core/assets/css/reg/reg.css' %}" rel="stylesheet">
+ 
+{% endblock%}
+
+{% block contenido%}
+         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+
+{% for seguimiento in seguimientos %}
+         
+
+<div class="main-w3layouts wrapper">
+	<h1>Mis Compras</h1>
+	<div class="main-agileinfo">
+		<div class="agileits-top">
+            <table>
+            <h2> {{ seguimiento }} - {{ seguimiento.fecha_actualizacion }}</h2>
+            <div class="progress">
+                <div class="progress-bar {% if seguimiento.estado == 'validacion' %}bg-warning{% elif seguimiento.estado == 'preparacion' %}bg-info{% elif seguimiento.estado == 'reparto' %}bg-primary{% else %}bg-success{% endif %}" 
+                     role="progressbar" 
+                     style="width: {% if seguimiento.estado == 'validacion' %}25{% elif seguimiento.estado == 'preparacion' %}50{% elif seguimiento.estado == 'reparto' %}75{% else %}100{% endif %}%"
+                     aria-valuenow="{% if seguimiento.estado == 'validacion' %}25{% elif seguimiento.estado == 'preparacion' %}50{% elif seguimiento.estado == 'reparto' %}75{% else %}100{% endif %}" 
+                     aria-valuemin="0" 
+                     aria-valuemax="100">
+                </div>
+                </div>
+                {% if user.groups.first.name == "Administrador" %}
+                <br><br>
+                        <a href="{% url 'cambiar_estado' seguimiento.id %} "style="margin: 0 auto; display:block; text-align: center">Cambiar estado</a>
+                {% endif %}
+                    </table>    
+            </div>
+</div>
+             
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>         
+<br>
+{% endfor %}
+
+{% endblock%}	
+{% block js%}
+    
+<script
+type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+{% endblock%}

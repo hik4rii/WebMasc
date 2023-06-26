@@ -1,0 +1,317 @@
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Untree.co">
+	<link rel="shortcut icon" href="{%static 'core/assets/images/faviconw.png' %}">
+	<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap5" />
+
+	<!-- Bootstrap CSS -->
+	<link href="{%static 'core/assets/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link
+		href="{%static 'core/assets/https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' %}"
+		rel="stylesheet">
+	<link href="{%static 'core/assets/css/tiny-slider.css' %}" rel="stylesheet">
+	<link href="{%static 'core/assets/css/style.css' %}" rel="stylesheet">
+	<link href="{%static 'core/assets/css/map.remponsive.css' %}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="{% static 'core/css/icomoon.css' %}">
+
+{% block css %}
+
+{% endblock %}
+
+<title>PetStoreDuoc </title>
+</head>
+
+{% block contenido%}
+
+	<!-- Start Header/Navigation -->
+	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top" arial-label="Furni navigation bar">
+
+		<div class="container">
+			<a class="navbar-brand" href="{% url 'index' %}">PetStore <span>Duoc.</span></a>
+			{% if user.is_authenticated %}
+			<div class="icon mr-2 d-flex justify-content-center align-items-center"><span
+					class="icon-paper-plane"></span><a class="bienvenida">ㅤㅤ {{ user.username }} ㅤㅤ &#128511;
+				</a>
+				<style>
+					.bienvenida {
+						font-family: "Arial", sans-serif;
+						font-size: 24px;
+						color: #e0ff33de;
+						text-shadow: 2px 2px 4px rgba(211, 124, 24, 0.675);
+						background-color: #083519;
+						padding: 10px 20px;
+						border-radius: 8px;
+						text-decoration: none;
+					}
+				</style>
+			</div>
+
+			{% else %}
+
+			{% endif %}
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarsFurni">
+				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+					<li class="nav-item ">
+						<a class="nav-link" href="{% url 'index' %}">Inicio</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="{% url 'shop' %}">Todas las categorías</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" href="{% url 'perro' %}">Perros</a></li>
+							<li><a class="dropdown-item" href="{% url 'gato' %}">Gatos</a></li>
+							<li><a class="dropdown-item" href="{% url 'exotico' %}">Exoticos</a></li>
+
+
+						</ul>
+					</li>
+					<li><a class="nav-link" href="{% url 'about' %}">Sobre nosotros</a></li>
+					<li><a class="nav-link" href="{% url 'contact' %}">Contactanos</a></li>
+				</ul>
+
+				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+					{% if user.is_authenticated %}
+					<li><a class="nav-link" href="{% url 'logout' %}">Cerrar sesion<img
+								src="{%static 'core/assets/images/user.svg' %}"></a></li>
+					<li><a class="nav-link" href="{% url 'cart' %}"><img
+								src="{%static 'core/assets/images/cart.svg' %}"></a></li>
+
+					{% else %}
+					<li><a class="nav-link" href="{% url 'login' %}"> Ingresar<img
+								src="{%static 'core/assets/images/user.svg' %}"></a></li>
+
+					{% endif %}
+
+					{% if user.is_superuser %}
+
+					<li><a class="nav-link" href="{% url 'trabajador' %}"> trabajador&#128517;	
+						</a></li>
+					{% endif %}
+
+				</ul>
+			</div>
+		</div>
+
+	</nav>
+	<!-- End Header/Navigation -->
+ 
+
+<!-- INICIO INTERFAZ WORKER -->	
+<div class="row container mt-5">
+	<div class="col-3 mt-4 ml-2 ">
+		<div id="list-example" class="list-group mt-4">
+			<a class="list-group-item list-group-item-action" style="background-color: rgb(11, 146, 11); color: white; text-shadow: 5px 5px #0000000c; margin-top: 50px;" href="{% url 'add' %}">Añadir producto</a>
+		</div>
+		<div class="col-23 mt-3 ml-5" >
+			<nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="border-radius: 30px;">
+				<div class="container">
+					<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50">
+						<div class="row container">
+							<ul class="navbar-nav">
+								<li class="nav-item">
+									<a class="nav-link" href="#section1">CANINOS</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="#section2">GATUNOS</a>
+								</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#section3">EXÓTICOS</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+	</div>
+
+	
+	<div class="col-8 mb-5 mt-5">
+		<div style="height: 830px; width: 1350px; border-radius: 15px; overflow-y: scroll; transform: translateX(10px); margin-top: 10px;">
+			<div class="container-fluid" style="border-radius: 10px; background-color: rgba(0, 0, 0, 0.070);">
+						<div id="section1" class="text-black" style="padding:100px 20px; text-align: center;">
+						  <h1 style="text-shadow: 5px 5px #00000021;">Caninos</h1>
+						  <p>
+							<section>
+								<div class="untree_co-section product-section before-footer-section">
+									<div class="container">
+										<div class="row">
+										{% for aux in listado %}
+										{% if aux.tipo_id == 1 %}
+										<div class="col-12 col-md-4 col-lg-3 mb-5">
+											<a class="product-item">
+												{% if aux.imagen %}
+												<img class="img-fluid product-thumbnail" src="{{ aux.imagen.url }}" style="height: 250px;" >
+												{% else %}
+												<img src="{%static 'core/assets/images/gatooo.avif' %}" class="img-fluid product-thumbnail">
+												{% endif %}
+												<h3 class="product-title">{{ aux.nombre }}</h3>
+												<h3 class="product-title">{{ aux.descripcion }}</h3>
+												{% if aux.stock > 1 %}
+												<p>Stock : {{ aux.stock	}}</p>
+												<strong class="product-price">${{ aux.precio }}</strong>
+												{% else %}
+												<p>Producto agotado</p>	
+												{% endif %}
+											</a>
+											<a href="{% url 'update' aux.id %}" class=" align-items-center ">
+												<span class="item-control"> <button type="button" class="btn btn-info mb-2">Actualizar</button></span>
+											<a onclick="eliminarProducto({{ aux.id }})" class="align-items-center ">
+												<span class="item-control"> <button type="button" class="btn btn-danger">Eliminar</button></span>
+											</a>
+										</div>
+										{% endif %}
+										{% endfor %}
+											</div>
+										</div>
+									</div>
+								</section>
+						  </p>
+						</div>
+						
+						<div id="section2" class="container-fluid text-black" style="padding:100px 20px; text-align: center;">
+						  <h1 style="text-shadow: 5px 5px #00000021;">Gatunos</h1>
+						  <p>
+							<section>
+								<div class="untree_co-section product-section before-footer-section">
+									<div class="container">
+										<div class="row">
+										{% for aux in listado %}
+										{% if aux.tipo_id == 2 %}
+										<div class="col-12 col-md-4 col-lg-3 mb-5">
+											<a class="product-item">
+												{% if aux.imagen %}
+												<img class="img-fluid product-thumbnail" src="{{ aux.imagen.url }}" style="height: 250px; " >
+												{% else %}
+												<img src="{%static 'core/assets/images/gatooo.avif' %}" class="img-fluid product-thumbnail">
+												{% endif %}
+												<h3 class="product-title">{{ aux.nombre }}</h3>
+												<h3 class="product-title">{{ aux.descripcion }}</h3>
+												{% if aux.stock > 1 %}
+												<p>Stock : {{ aux.stock	}}</p>
+												<strong class="product-price">${{ aux.precio }}</strong>
+												{% else %}
+												<p>Producto agotado</p>	
+												{% endif %}
+											</a>
+											<a href="{% url 'update' aux.id %}" class=" align-items-center ">
+												<span class="item-control"> <button type="button" class="btn btn-info mb-2">Actualizar</button></span>
+											<a onclick="eliminarProducto({{ aux.id }})" class="align-items-center ">
+												<span class="item-control"> <button type="button" class="btn btn-danger">Eliminar</button></span>
+											</a>
+										</div>
+										{% endif %}
+										{% endfor %}
+											</div>
+										</div>
+									</div>
+								</section>
+						  </p>
+						</div>
+						
+						<div id="section3" class="container-fluid text-black" style="padding:100px 20px; text-align: center;">
+						  <h1 style="text-shadow: 5px 5px #00000021; ">Exóticos</h1>
+						<p>
+							<section>
+								<div class="untree_co-section product-section before-footer-section">
+									<div class="container">
+										<div class="row">
+										{% for aux in listado %}
+										{% if aux.tipo_id == 3 %}
+										<div class="col-12 col-md-4 col-lg-3 mb-5">
+											<a class="product-item">
+												{% if aux.imagen %}
+												<img class="img-fluid product-thumbnail" src="{{ aux.imagen.url }}" style="height: 250px;" >
+												{% else %}
+												<img src="{%static 'core/assets/images/gatooo.avif' %}" class="img-fluid product-thumbnail">
+												{% endif %}
+												<h3 class="product-title">{{ aux.nombre }}</h3>
+												<h3 class="product-title">{{ aux.descripcion }}</h3>
+												{% if aux.stock > 1 %}
+												<p>Stock : {{ aux.stock	}}</p>
+												<strong class="product-price">${{ aux.precio }}</strong>
+												{% else %}
+												<p>Producto agotado</p>	
+												{% endif %}
+											</a>
+											<a href="{% url 'update' aux.id %}" class=" align-items-center ">
+												<span class="item-control"> <button type="button" class="btn btn-info mb-2">Actualizar</button></span>
+											<a onclick="eliminarProducto({{ aux.id }})" class="align-items-center ">
+												<span class="item-control"> <button type="button" class="btn btn-danger">Eliminar</button></span>
+											</a>
+										</div>
+										{% endif %}
+										{% endfor %}
+											</div>
+										</div>
+									</div>
+								</section>
+						</p>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- FIN INTERFAZ WORKER -->
+
+{% comment "" %}
+<div class="untree_co-section product-section before-footer-section">
+	<div class="container">
+		<div class="row">
+						{% for aux in listado %}
+						<div class="col-12 col-md-4 col-lg-3 mb-5">
+							<a class="product-item">
+								{% if aux.imagen %}
+								<img class="img-fluid product-thumbnail" src="{{ aux.imagen.url }}" >
+					{% else %}
+					<img src="{%static 'core/assets/images/gatooo.avif' %}" class="img-fluid product-thumbnail">
+					{% endif %}
+					<h3 class="product-title">{{ aux.nombre }}</h3>
+					<h3 class="product-title">Stock: {{ aux.stock }}</h3>
+					<strong class="product-price">${{ aux.precio}}</strong>
+				</a>
+				<div class="bottom-area d-flex px-3">
+					<div class="m-auto d-flex">
+						<a href="{% url 'update' aux.id %}" class="heart d-flex justify-content-center align-items-center ">
+							<span class="item-control"> <img src="{% static 'core/assets/images/return.svg' %}" class="img-fluid"></span>
+						</a>
+						<a href="{% url 'delete' aux.id %}" class="heart d-flex justify-content-center align-items-center ">
+							<span class="item-control"> <img src="{% static 'core/assets/images/trash.svg' %}" class="img-fluid"></span>
+						</a>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+		    </div>
+		</div>		
+{% endcomment %}
+
+<!-- BLOCK JS -->
+<script src="{%static 'core/assets/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{%static 'core/assets/js/tiny-slider.js' %}"></script>
+<script src="{%static 'core/assets/js/custom.js' %}"></script>
+<script src="{%static 'core/assets/js/reg.js' %}"></script>
+<script src="{%static 'core/assets/js/mensajes.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- FIN BLOCK JS -->
+
+{% endblock%}	
+{% block js%}
+{% endblock%}
